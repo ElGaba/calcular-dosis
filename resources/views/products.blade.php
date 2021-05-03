@@ -47,10 +47,10 @@
                                             Nombre
                                         </th>
                                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                            Dosis
+                                            Dosis (mg/kg)
                                         </th>
                                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                            Concentración
+                                            Concentración (gr/kg)
                                         </th>
                                         </tr>
                                     </thead>
@@ -121,15 +121,15 @@
             @isset($dosisCalculada)
                 <div class="mt-3 bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200 flex items-center">
-                     Dosis calculada: {{$dosisCalculada}}
+                     Dosis total: {{$dosisCalculada}} kg
                 </div>
 
                 <div class="p-6 bg-white border-b border-gray-200 flex items-center">
-                     Consumo de Alimento: {{$consumoDeAlimento}}
+                     Consumo de Alimento por día: {{$consumoDeAlimento}} kg
                 </div>
 
                 <div class="p-6 bg-white border-b border-gray-200 flex items-center">
-                     Cantidad por tonelada: {{$cantidadPorTonelada}}
+                     Cantidad por tonelada: {{$cantidadPorTonelada}} kg
                 </div>
             </div>
             @endisset

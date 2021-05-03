@@ -96,11 +96,13 @@ class ProductsController extends Controller
             'peso' => 'numeric|required'
         ]);
 
-        $dosisCalculada = ($product->dosis * $inputs['cantidadAnimales'] * $inputs['peso']) / 1000;
+        $principioActivo = ($product->dosis * $inputs['cantidadAnimales'] * $inputs['peso']) / 1000;
+
+        $dosisCalculada = $principioActivo * (1 / $product->concentration);
 
         $consumoDeAlimento = $inputs['cantidadAlimento'] * $inputs['cantidadAnimales'];
 
-        $cantidadPorTonelada = (1000 * $dosisCalculada) / $consumoDeAlimento;
+        $cantidadPorTonelada = round((1000 * $dosisCalculada) / $consumoDeAlimento, 3);
 
         return view('products', [
         'products' => Product::all(),
