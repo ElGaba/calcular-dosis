@@ -19,6 +19,12 @@
                     <x-nav-link :href="route('products')" :active="request()->routeIs('products')">
                         {{ __('Productos') }}
                     </x-nav-link>
+
+                    @auth
+                    <x-nav-link :href="route('species')" :active="request()->routeIs('species')">
+                        {{ __('Especies') }}
+                    </x-nav-link>
+                    @endauth
                 </div>
             </div>
 

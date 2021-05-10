@@ -38,7 +38,8 @@ class ProductsController extends Controller
         Product::create(request()->validate([
             'name' => 'required',
             'dosis' => 'required|numeric',
-            'concentration' => 'required|numeric'
+            'concentration' => 'required|numeric',
+            'species_id' => 'required|exists:species,id'
         ]));
 
         return redirect(route('products'));

@@ -11,6 +11,25 @@
             @csrf
 
             <div>
+                Selecciona una especie:
+
+                <span class="relative bg-gray-100 inline-block rounded-xl">
+                    <select name="species_id" class="flex-1 bg-transparent py-2 pl-3 pr-9 text-sm font-semibold">
+                        <option value="species" disabled selected>Especies
+                        </option>
+                        @isset($species)
+                            @foreach($species as $specie)
+                            <option value="{{ $specie->id }}">{{ $specie->name }}</option>
+                            @endforeach
+                        @endisset
+                    </select>
+                </span>
+                @error('species_id')
+                    <p class="block mt-1 w-full text-red-500">{{ $message }}</p>
+                @enderror
+            </div>
+
+            <div>
                 <x-label for="name" :value="__('Nombre')" />
 
                 @error('name')
