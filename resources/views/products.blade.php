@@ -10,15 +10,43 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200 flex items-center justify-between">
                     <div>
+                        Selecciona una especie:
+
+                        <span class="relative bg-gray-100 inline-block rounded-xl">
+                            <select class="flex-1 appearance-none bg-transparent py-2 pl-3 pr-9 text-sm font-semibold" onchange="window.location.replace('/products/species/' + value)">
+                                <option value="category" disabled selected>Especies
+                                </option>
+                                @isset($species)
+                                    @foreach($species as $specie)
+                                    <option value="{{ $specie->id }}" @isset($selectedSpecie){{ $selectedSpecie->id == $specie->id ? 'selected' : '' }}@endisset>{{ $specie->name }}</option>
+                                    @endforeach
+                                @endisset
+                            </select>
+                        </span>
+                    </div>
+
+                    @auth
+                    <div>
+                        <a href="{{ route('species') }}">Añadir Especies</a>
+                    </div>
+                    @endauth
+
+                </div>
+            </div>
+
+            @isset($selectedSpecie)
+            <div class="mt-3 bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 bg-white border-b border-gray-200 flex items-center justify-between">
+                    <div>
                         Selecciona un producto:
 
                         <span class="relative bg-gray-100 inline-block rounded-xl">
-                            <select class="flex-1 appearance-none bg-transparent py-2 pl-3 pr-9 text-sm font-semibold" onchange="window.location.replace('/products/' + value)">
+                            <select class="flex-1 appearance-none bg-transparent py-2 pl-3 pr-9 text-sm font-semibold" onchange="if (window.location.href.substring(window.location.href.indexOf('species/')+9) == '') {window.location.href += '/product/' + value} else {window.location.href = window.location.href.replace(window.location.href.substring(window.location.href.indexOf('species/')+9), '/product/' + value)}">
                                 <option value="category" disabled selected>Productos
                                 </option>
                                 @isset($products)
                                     @foreach($products as $product)
-                                    <option value="{{ $product->id }}">{{ $product->name }}</option>
+                                    <option value="{{ $product->id }}" @isset($selectedProduct){{ $selectedProduct->id == $product->id ? 'selected' : '' }}@endisset>{{ $product->name }}</option>
                                     @endforeach
                                 @endisset
                             </select>
@@ -33,6 +61,7 @@
 
                 </div>
             </div>
+            @endisset
 
             <!-- Datos del producto seleccionado -->
             @isset($selectedProduct)
@@ -75,7 +104,7 @@
 
                 <!-- Entradas para hacer el calculo -->
                 <div class="mt-3 overflow-hidden">
-                    <form method="POST" action="{{ route('products.calculate', $selectedProduct->id) }}">
+                    <form method="POST" action="{{ route('products.calculate', ['product' => $selectedProduct->id, 'specie' => $selectedSpecie->id]) }}">
                         @csrf
 
                         <div>
