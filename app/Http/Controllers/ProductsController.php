@@ -107,7 +107,8 @@ class ProductsController extends Controller
         $cantidadPorTonelada = round((1000 * $dosisCalculada) / $consumoDeAlimento, 3);
 
         return view('products', [
-        'products' => Product::all(),
+        'products' => $specie->products,
+        'species' => Species::all(),
         'selectedProduct' => $product,
         'selectedSpecie' => $specie,
         'dosisCalculada' => $dosisCalculada,
