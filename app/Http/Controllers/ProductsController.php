@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\Species;
 use Illuminate\Http\Request;
 
 class ProductsController extends Controller
@@ -89,7 +90,7 @@ class ProductsController extends Controller
         //
     }
 
-    public function calculate(Product $product)
+    public function calculate(Species $specie, Product $product)
     {
         $inputs = request()->validate([
             'cantidadAnimales' => 'numeric|required',
@@ -108,6 +109,7 @@ class ProductsController extends Controller
         return view('products', [
         'products' => Product::all(),
         'selectedProduct' => $product,
+        'selectedSpecie' => $specie,
         'dosisCalculada' => $dosisCalculada,
         'consumoDeAlimento' => $consumoDeAlimento,
         'cantidadPorTonelada' => $cantidadPorTonelada
